@@ -1,0 +1,276 @@
+# Calculator apxc
+
+public class CalculatorController {
+    
+    public Decimal num1 {get; set;}
+    public Decimal num2 {get; set;}
+    public Decimal result {get; set;}
+    
+    // Addition
+    public void add() {
+        result = num1 + num2;
+    }
+    
+    // Subtraction
+    public void subtract() {
+        result = num1 - num2;
+    }
+    
+    // Multiplication
+    public void multiply() {
+        result = num1 * num2;
+    }
+    
+    // Division
+    public void divide() {
+        if(num2 != 0) {
+            result = num1 / num2;
+        } else {
+            result = 0;
+        }
+    }
+}
+
+# Calculator vfp
+
+<apex:page controller="CalculatorController">
+
+    <apex:form >
+        <apex:pageBlock title="Simple Calculator">
+            <apex:pageBlockSection columns="1">
+                <apex:inputText value="{!num1}" 
+                                 label="First Number"/>
+
+                <apex:inputText value="{!num2}" 
+                                 label="Second Number"/>
+
+            </apex:pageBlockSection>
+
+            <div style="text-align:center; margin-top:15px;">
+
+                <apex:commandButton value="Add"
+                                    action="{!add}"
+                                    style="background:#4CAF50;
+                                           color:white;
+                                           border:none;
+                                           padding:8px 16px;
+                                           margin-right:5px;
+                                           border-radius:5px;"/>
+
+                <apex:commandButton value="Subtract"
+                                    action="{!subtract}"
+                                    style="background:#f39c12;
+                                           color:white;
+                                           border:none;
+                                           padding:8px 16px;
+                                           margin-right:5px;
+                                           border-radius:5px;"/>
+
+                <apex:commandButton value="Multiply"
+                                    action="{!multiply}"
+                                    style="background:#3498db;
+                                           color:white;
+                                           border:none;
+                                           padding:8px 16px;
+                                           margin-right:5px;
+                                           border-radius:5px;"/>
+
+                <apex:commandButton value="Divide"
+                                    action="{!divide}"
+                                    style="background:#e74c3c;
+                                           color:white;
+                                           border:none;
+                                           padding:8px 16px;
+                                           border-radius:5px;"/>
+
+            </div>
+
+            <div style="margin-top:20px;
+                        text-align:center;
+                        font-size:20px;
+                        font-weight:bold;
+                        color:#2c3e50;">
+
+                Result : {!result}
+
+            </div>
+
+        </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>
+
+# Binary search 
+
+public class BinarySearch {
+
+    public static Integer binarySearch(List<Integer> arr, Integer key) {
+        Integer left = 0;
+        Integer right = arr.size() - 1;
+        while (left <= right) {
+            Integer mid = (left + right) / 2;
+            if (arr.get(mid) == key) {
+                return mid;
+            }
+            else if (arr.get(mid) < key) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    // Test method
+    public static void testSearch() {
+        List<Integer> numbers = new List<Integer>{10, 20, 30, 40, 50};
+        Integer key = 40;
+        Integer result = binarySearch(numbers, key);
+        if (result != -1) {
+            System.debug('Element found at index: ' + result);
+        }
+        else {
+            System.debug('Element not found');
+        }
+    }
+}
+
+#Bubble Sort
+
+public class BubbleSort{
+
+    public static void BubbleSort(List<Integer> arr) {
+        
+        Integer n = arr.size();
+
+        for (Integer i = 0; i < n - 1; i++) {
+            for (Integer j = 0; j < n - i - 1; j++) {
+                
+                if (arr[j] > arr[j + 1]) {
+                    // swap
+                    Integer temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Test method
+    public static void testSort() {
+        List<Integer> numbers = new List<Integer>{50, 20, 40, 10, 30};
+
+        System.debug('Before Sorting: ' + numbers);
+
+        BubbleSort(numbers);
+
+        System.debug('After Sorting: ' + numbers);
+    }
+}
+
+# Insertion Sort
+
+public class InsertionSort {
+    
+    public static void insertionSort(List<Integer> arr) {
+        
+        Integer n = arr.size();
+
+        for (Integer i = 1; i < n; i++) {
+            Integer key = arr[i];
+            Integer j = i - 1;
+
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            arr[j + 1] = key;
+        }
+    }
+
+    // Test method
+    public static void testSort() {
+        List<Integer> numbers = new List<Integer>{50, 20, 40, 10, 30};
+
+        System.debug('Before Sorting: ' + numbers);
+
+        insertionSort(numbers);
+
+        System.debug('After Sorting: ' + numbers);
+    }
+}
+
+#Linear Search
+
+public class LinearSearch {
+
+   
+    public static Integer linearSearch(List<Integer> arr, Integer key) {
+        
+        for (Integer i = 0; i < arr.size(); i++) {
+            if (arr[i] == key) {
+                return i; 
+            }
+        }
+        
+        return -1; 
+    }
+
+    // Test method
+    public static void testSearch() {
+        List<Integer> numbers = new List<Integer>{10, 20, 30, 40, 50};
+        Integer key = 30;
+
+        Integer result = linearSearch(numbers, key);
+
+        if (result != -1) {
+            System.debug('Element found at index: ' + result);
+        } else {
+            System.debug('Element not found');
+        }
+    }
+}
+
+#Selection Sort
+
+public class SelectionSort {
+
+    // Method to perform Selection Sort
+    public static void selectionSort(List<Integer> arr) {
+        
+        Integer n = arr.size();
+
+        for (Integer i = 0; i < n - 1; i++) {
+            Integer minIndex = i;
+
+            // Find minimum element in remaining array
+            for (Integer j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap if needed
+            if (minIndex != i) {
+                Integer temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+        }
+    }
+
+    // Test method
+    public static void testSort() {
+        List<Integer> numbers = new List<Integer>{50, 20, 40, 10, 30};
+
+        System.debug('Before Sorting: ' + numbers);
+
+        selectionSort(numbers);
+
+        System.debug('After Sorting: ' + numbers);
+    }
+}
